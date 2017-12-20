@@ -8,7 +8,7 @@ export interface StringItemProps {
 	label: string;
 	value?: string;
 	className?: string;
-	handleChange?: React.ChangeEventHandler<HTMLInputElement>;
+	handleChange?: React.ChangeEventHandler<HTMLTextAreaElement>;
 }
 
 const StyledStringItem = styled.div`
@@ -23,34 +23,36 @@ const StyledLabel = styled.span`
 	color: ${colors.black.toString()};
 `;
 
-const StyledInput = styled.input`
-	display: block;
+const StyledTextarea = styled.textarea`
 	box-sizing: border-box;
+	display: block;
 	width: 100%;
-	text-overflow: ellipsis;
+	height: 28px;
+	padding-bottom: ${getSpace(Size.M) / 2}px;
 	border: none;
 	border-bottom: 1px solid transparent;
+	margin-bottom: ${getSpace(Size.L)}px;
 	background: transparent;
 	font-family: ${fonts().NORMAL_FONT};
 	font-size: 15px;
-	padding-bottom: ${getSpace(Size.M) / 2}px;
+	text-overflow: ellipsis;
 	color: ${colors.grey36.toString()};
-	margin-bottom: ${getSpace(Size.L)}px;
 	transition: all 0.2s;
+	resize: vertical;
 
 	::-webkit-input-placeholder {
 		color: ${colors.grey60.toString()};
 	}
 
 	&:hover {
-		color: ${colors.black.toString()};
 		border-color: ${colors.grey60.toString()};
+		color: ${colors.black.toString()};
 	}
 
 	&:focus {
-		outline: none;
 		border-color: ${colors.blue40.toString()};
 		color: ${colors.black.toString()};
+		outline: none;
 	}
 `;
 
@@ -61,12 +63,9 @@ export const StringItem: React.StatelessComponent<StringItemProps> = props => {
 		<StyledStringItem className={className}>
 			<label>
 				<StyledLabel>{label}</StyledLabel>
-				<StyledInput
-					onChange={handleChange}
-					type="textarea"
-					value={value}
-					placeholder="Type in"
-				/>
+				<StyledTextarea onChange={handleChange} placeholder="Type in">
+					{value}
+				</StyledTextarea>
 			</label>
 		</StyledStringItem>
 	);
